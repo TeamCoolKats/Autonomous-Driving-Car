@@ -1,0 +1,172 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\definecolor{codegray}{gray}{0.95}
+\lstset{
+  backgroundcolor=\color{codegray},
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}
+}
+
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+\title{Design Specification: Fujitsu Autonomous Driving}
+\author{Cal State LA Senior Design Team}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Overview}
+
+The \textbf{Fujitsu Autonomous Driving} project aims to develop an autonomous driving algorithm for a toy car, specifically designed to operate in environments lacking clear white lane markings. This initiative addresses the challenges faced by current autonomous vehicles in such scenarios, enhancing their adaptability and safety.
+
+\section{System Architecture}
+
+The system is modular, comprising the following key components:
+
+\begin{itemize}[leftmargin=*, label={--}]
+  \item \textbf{Image Acquisition}: Captures real-time images using a camera mounted on the toy car.
+  \item \textbf{Preprocessing}: Processes raw images to enhance features relevant for navigation.
+  \item \textbf{Lane Detection}: Identifies lane boundaries using computer vision techniques.
+  \item \textbf{Object Detection}: Detects obstacles and relevant objects in the driving path.
+  \item \textbf{Path Planning}: Determines the optimal path based on lane and object information.
+  \item \textbf{Control Module}: Sends appropriate commands to the car's actuators to follow the planned path.
+\end{itemize}
+
+\section{Component Breakdown}
+
+\subsection{Image Acquisition}
+
+\begin{itemize}[leftmargin=*, label={--}]
+  \item \textbf{Hardware}: Raspberry Pi Camera Module v2.
+  \item \textbf{Software Interface}: Utilizes OpenCV's \texttt{VideoCapture} for image retrieval.
+\end{itemize}
+
+\subsection{Preprocessing}
+
+\begin{itemize}[leftmargin=*, label={--}]
+  \item Converts images to grayscale.
+  \item Applies Gaussian blur to reduce noise.
+  \item Performs edge detection using the Canny algorithm.
+\end{itemize}
+
+\subsection{Lane Detection}
+
+\begin{itemize}[leftmargin=*, label={--}]
+  \item Implements Hough Line Transform to detect lane lines.
+  \item Applies perspective transformation for bird's-eye view.
+\end{itemize}
+
+\subsection{Object Detection}
+
+\begin{itemize}[leftmargin=*, label={--}]
+  \item Employs pre-trained YOLOv3 model for real-time object detection.
+  \item Filters detections based on confidence thresholds.
+\end{itemize}
+
+\subsection{Path Planning}
+
+\begin{itemize}[leftmargin=*, label={--}]
+  \item Calculates the centerline between detected lanes.
+  \item Adjusts path to avoid detected obstacles.
+\end{itemize}
+
+\subsection{Control Module}
+
+\begin{itemize}[leftmargin=*, label={--}]
+  \item Translates planned path into steering and throttle commands.
+  \item Communicates with the car's microcontroller via serial interface.
+\end{itemize}
+
+\section{Docker Containerization}
+
+To ensure consistency across development environments, the project is containerized using Docker.
+
+\subsection{Base Image}
+
+\begin{itemize}[leftmargin=*, label={--}]
+  \item \textbf{OS}: Ubuntu 20.04 LTS.
+  \item \textbf{Python}: Version 3.8.
+\end{itemize}
+
+\subsection{Required Packages and Dependencies}
+
+\begin{itemize}[leftmargin=*, label={--}]
+  \item \textbf{System Packages}:
+    \begin{itemize}
+      \item \texttt{build-essential}
+      \item \texttt{cmake}
+      \item \texttt{git}
+      \item \texttt{libopencv-dev}
+      \item \texttt{python3-dev}
+      \item \texttt{python3-pip}
+    \end{itemize}
+  \item \textbf{Python Libraries}:
+    \begin{itemize}
+      \item \texttt{opencv-python}
+      \item \texttt{numpy}
+      \item \texttt{matplotlib}
+      \item \texttt{pyserial}
+      \item \texttt{torch}
+      \item \texttt{torchvision}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Dockerfile Example}
+
+\begin{lstlisting}[language=Dockerfile]
+FROM ubuntu:20.04
+
+# Set environment variables
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install system packages
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    libopencv-dev \
+    python3-dev \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python packages
+RUN pip3 install --upgrade pip
+RUN pip3 install \
+    opencv-python \
+    numpy \
+    matplotlib \
+    pyserial \
+    torch \
+    torchvision
+
+# Set working directory
+WORKDIR /app
+
+# Copy project files
+COPY . /app
+
+# Set default command
+CMD ["python3", "main.py"]
+\end{lstlisting}
+
+\section{Conclusion}
+
+This design specification provides a detailed overview of the Fujitsu Autonomous Driving project's architecture and its Docker-based deployment strategy. By modularizing the system and containerizing the environment, the project ensures scalability, maintainability, and ease of collaboration among development team members.
+
+\end{document}
