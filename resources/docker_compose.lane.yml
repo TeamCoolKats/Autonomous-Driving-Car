@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  lane_detection:
+    image: lane-autonomy-base
+    container_name: lane_detection
+    command: python3 lane_detection.py
+    depends_on:
+      - preprocessing
+    networks:
+      - autonomy_net
+
+  path_planning:
+    image: lane-autonomy-base
+    container_name: path_planning
+    command: python3 path_planning.py
+    depends_on:
+      - lane_detection
+    networks:
+      - autonomy_net
+
+networks:
+  autonomy_net:
+    external: true
