@@ -1,0 +1,53 @@
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.pyo
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+
+# Python egg and packaging
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebook checkpoints (if used)
+.ipynb_checkpoints/
+
+# Model weights and large files
+models/*.weights
+models/*.pt
+models/*.onnx
+models/*.h5
+
+# Test output
+data/output/
+*.log
+
+# Configs and sensitive files
+*.yaml
+*.yml
+!docker/*.yml         # keep Docker Compose files
+config/*.yaml
+
+# Docker artifacts
+*.tar
+docker-compose.override.yml  # if it's local-only
+
+# VS Code & IDE settings
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Container volumes (optional if mounting host dirs)
+volumes/
