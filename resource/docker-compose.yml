@@ -3,12 +3,12 @@ version: '3.9'
 services:
   base:
     build:
-      context: .
+      context: ../..
       dockerfile: Dockerfile
     image: lane-autonomy-base
     container_name: lane_autonomy_base
     volumes:
-      - .:/app
+      - ../..:/app
     working_dir: /app
     networks:
       - autonomy_net
@@ -17,8 +17,6 @@ services:
     image: lane-autonomy-base
     container_name: image_acquisition
     command: python3 image_acquisition.py
-    devices:
-      - "/dev/video0:/dev/video0" # Replace as needed for Pi Camera
     depends_on:
       - base
     networks:
@@ -70,7 +68,7 @@ services:
     networks:
       - autonomy_net
     devices:
-      - "/dev/ttyUSB0:/dev/ttyUSB0"  # Adjust serial port as needed
+      - "/dev/ttyUSB0:/dev/ttyUSB0"
 
 networks:
   autonomy_net:
