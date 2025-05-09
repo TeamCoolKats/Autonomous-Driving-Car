@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  control_module:
+    image: lane-autonomy-base
+    container_name: control_module
+    command: python3 control_module.py
+    depends_on:
+      - path_planning
+    networks:
+      - autonomy_net
+    devices:
+      - "/dev/ttyUSB0:/dev/ttyUSB0"
