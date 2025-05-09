@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  object_detection:
+    image: lane-autonomy-base
+    container_name: object_detection
+    command: python3 object_detection.py
+    depends_on:
+      - preprocessing
+    networks:
+      - autonomy_net
+
+networks:
+  autonomy_net:
+    external: true
