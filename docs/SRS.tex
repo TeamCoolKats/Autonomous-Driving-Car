@@ -1,0 +1,145 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{Software Requirements Specification\\\vspace{0.3em}\large Autonomous Driving Without Lane Marks}
+\author{Humayra Rashid, Daniel Gomez, Henry Xiong, Rodrigo Valdez}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Revision History}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Name} & \textbf{Date} & \textbf{Reason for Changes} \\
+\hline
+Humayra Rashid, Daniel Gomez,\\ Henry Xiong, Rodrigo Valdez & \today & Initial Draft \\
+\hline
+\end{tabular}
+
+\newpage
+
+\section{Introduction}
+\subsection{Purpose}
+This document outlines the software requirements for an autonomous driving system capable of navigating without clear lane markings. It includes all functional and non-functional requirements needed for development.
+
+\subsection{Intended Audience and Reading Suggestions}
+This document is intended for software engineers, project managers, and testers. Section 4 is most relevant to developers and testers, while sections 1 and 2 provide context for stakeholders.
+
+\subsection{Product Scope}
+The project involves designing and implementing a software system that enables autonomous vehicles to drive on roads with unclear or absent lane markings. The system will process real-time sensor input to determine navigation paths.
+
+\subsection{Definitions, Acronyms, and Abbreviations}
+\begin{itemize}[noitemsep]
+  \item ADA - Autonomous Driving Algorithm
+  \item PM - Processing Module
+  \item RM - Response Module
+  \item SIM - Simulator
+\end{itemize}
+
+\subsection{References}
+No academic papers were cited. Project built on top of publicly available open-source driving simulators.
+
+\section{Overall Description}
+\subsection{System Analysis}
+The system addresses the challenge of autonomous driving without lane marks. Major hurdles include accurate environmental perception and safe decision-making. Solutions involve a modular software pipeline with pre-processing and response logic.
+
+\subsection{Product Perspective}
+This system is a standalone software solution that can be integrated into toy-scale or full-scale vehicles equipped with sensors. It does not depend on any existing proprietary systems.
+
+\subsection{Product Functions}
+\begin{itemize}[noitemsep]
+  \item Interpret visual data to identify drivable paths.
+  \item Process sensor input to detect obstacles.
+  \item Compute steering and speed commands.
+\end{itemize}
+
+\subsection{User Classes and Characteristics}
+\begin{itemize}[noitemsep]
+  \item Developers - configure modules and debug performance.
+  \item Testers - evaluate system behavior in simulated and real-world conditions.
+\end{itemize}
+
+\subsection{Operating Environment}
+The software will run on Raspberry Pi or Android systems in the prototype and on a desktop computer for simulation.
+
+\subsection{Design and Implementation Constraints}
+Must be lightweight enough to run on embedded systems. Should work without GPS or high-resolution maps.
+
+\subsection{User Documentation}
+A developer's guide and simulation test plan will be included.
+
+\subsection{Assumptions and Dependencies}
+Assumes availability of a camera, a motor controller, and basic Linux-based system.
+
+\subsection{Apportioning of Requirements}
+Advanced lane merging and multi-car coordination will be postponed for later versions.
+
+\section{External Interface Requirements}
+\subsection{User Interfaces}
+CLI and logs only; no GUI. Possible voice input in later versions.
+
+\subsection{Hardware Interfaces}
+Interacts with sensors (camera, ultrasonic), motors, and microcontrollers.
+
+\subsection{Software Interfaces}
+Built on open-source libraries like OpenCV. Will communicate with a control daemon on the prototype.
+
+\subsection{Communications Interfaces}
+Uses Bluetooth for prototype communication and file-based interfaces in simulator.
+
+\section{Requirements Specification}
+\subsection{Functional Requirements}
+\textbf{SM - Sensor Module}
+\begin{itemize}[noitemsep]
+  \item SM.1 The system shall collect visual data from the front-facing camera.
+  \item SM.2 The system shall detect obstacles and send data to the controller.
+\end{itemize}
+
+\textbf{CM - Controller Module}
+\begin{itemize}[noitemsep]
+  \item CM.1 The system shall receive sensor input and pass it to the app module.
+  \item CM.2 The system shall forward control commands to the motor.
+\end{itemize}
+
+\textbf{AM - Application Module}
+\begin{itemize}[noitemsep]
+  \item AM.1 The system shall manage the processing and response pipeline.
+  \item AM.2 The system shall communicate results back to the controller.
+\end{itemize}
+
+\subsection{External Interface Requirements}
+Described in Section 3.
+
+\subsection{Logical Database Requirements}
+No persistent data storage required. All data processed in real time.
+
+\subsection{Design Constraints}
+Must run in under 200MB RAM. Execution must remain under 100ms per loop.
+
+\section{Other Nonfunctional Requirements}
+\subsection{Performance Requirements}
+95\% of commands must be generated in under 100ms.
+
+\subsection{Safety Requirements}
+Prototype must stop movement on sensor failure.
+
+\subsection{Security Requirements}
+Bluetooth pairing must be encrypted.
+
+\subsection{Software Quality Attributes}
+\begin{itemize}[noitemsep]
+  \item Modularity
+  \item Real-time responsiveness
+  \item Portability to embedded devices
+\end{itemize}
+
+\subsection{Business Rules}
+Only trusted developers can change the driving policy logic.
+
+\section{Legal and Ethical Considerations}
+Prototype testing will be done only in safe, closed environments. Code will be open-source for educational use only.
+
+\end{document}
