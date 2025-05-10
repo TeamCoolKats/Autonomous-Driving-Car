@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{README / User Manual\\\large Autonomous Driving Without Lane Marks}
+\author{Humayra Rashid, Daniel gomez, Henry Xiong, Rodrigo Valdez}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+
+\section*{Jira Link}
+\textbf{Project Board:} \url{https://cs3338-03-group-5.atlassian.net/jira/software/projects/ADC/boards/6}
+
+\section{Project Overview}
+This project provides a modular algorithm for autonomous vehicles to navigate safely on roads without clear or reliable lane markings. It includes a software simulation and hardware prototype tested on a toy vehicle.
+
+\section{Formal Objectives}
+\begin{itemize}
+  \item Develop an autonomous driving algorithm that operates in the absence of visible lane markers.
+  \item Test and validate the algorithm using both simulated and physical environments.
+  \item Ensure modularity and portability of the algorithm to different hardware platforms.
+\end{itemize}
+
+\section{Project Goals and Rationale}
+\textbf{Why is this needed?} Traditional autonomous driving models rely heavily on lane detection, which can fail in poor weather, construction zones, or unmarked roads. This system enhances safety and adaptability in such scenarios.
+
+\textbf{Key Goals:}
+\begin{itemize}
+  \item Increase robustness of autonomous vehicle navigation
+  \item Build an affordable, scalable test platform for algorithm development
+  \item Contribute to the open-source autonomous driving community
+\end{itemize}
+
+\section{How to Access and Run the System}
+\subsection*{1. Clone the Repository}
+\begin{verbatim}
+$ git clone https://github.com/TeamCoolKats/Autonomous-Driving-Car
+\end{verbatim}
+
+\subsection*{2. Install Dependencies}
+\begin{itemize}
+  \item Python 3.9 or higher
+  \item OpenCV
+  \item NumPy
+  \item For C++ modules: g++ or VS Code with C++ extension
+\end{itemize}
+
+\subsection*{3. Run in Simulator}
+Instructions are in the `simulator/README.md`. Use a simulator like CARLA or a custom test harness.
+
+\subsection*{4. Run on Prototype Vehicle}
+See `prototype/setup.md`. Use Raspberry Pi with camera module and motor driver controller.
+
+\section{Folder Structure}
+\begin{verbatim}
+/algorithm      - Contains processing and response modules
+/simulator      - Contains simulation scripts and scenarios
+/prototype      - Setup guides and wiring diagrams for hardware
+/docs           - Design documents, SRS, and snapshots
+/tests          - Unit and integration tests
+\end{verbatim}
+
+\section{Support and Contributions}
+\begin{itemize}
+  \item Contact the repo owner via GitHub issues for bugs or suggestions.
+  \item Contributions are welcome through pull requests after discussion.
+\end{itemize}
+
+\section{License}
+This project is licensed under the MIT License. For educational use only.
+
+\end{document}
