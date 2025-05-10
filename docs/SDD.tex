@@ -1,0 +1,107 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{tocloft}
+\geometry{margin=1in}
+\title{Software Design Document\\\large Autonomous Driving Without Lane Marks}
+\author{Humayra Rashid, Daniel Gomez, Henry Xiong, Rodrigo Valdez}
+\date{\today}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+
+
+\newpage
+
+\tableofcontents
+\newpage
+
+\section*{Version History}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Version} & \textbf{Date} & \textbf{Comment} & \textbf{Author(s)} \\
+\hline
+0.1 & 05/07/2025 & Initial planning and purpose section & Humayra Rashid \\
+\hline
+0.2 & 05/08/2025 & Added architecture and UI description & Henry Xiong \\
+\hline
+0.3 & 05/09/2025 & Finalized glossary & Humayra Rashid \\
+\hline
+0.4 & 05/09/2025 & Finalized references & Humayra Rashid \\
+\hline
+\end{tabular}
+
+\newpage
+
+\section{Introduction}
+\subsection{Purpose}
+This Software Design Document (SDD) outlines the architecture, behavior, and system design for an autonomous driving algorithm that enables navigation without lane markings. The goal is to aid researchers and engineers in replicating and evolving the prototype.
+
+\subsection{Intended Audience}
+\begin{itemize}
+  \item Developers – for implementation and system extension
+  \item Project Managers – to track feature integration
+  \item Researchers and Educators – for system reference
+  \item Testers – to design unit and integration test strategies
+\end{itemize}
+
+\subsection{System Overview}
+The system processes real-time camera and sensor input to make driving decisions in environments lacking road lane markings. It operates in both simulation and physical toy car settings, emphasizing modularity, sensor feedback, and AI-driven pathfinding.
+
+\section{System Architecture}
+\subsection{Workflow and Component Breakdown}
+\begin{itemize}
+  \item \textbf{Camera Input:} Captures the environment in front of the vehicle.
+  \item \textbf{Sensor Module (SM):} Reads proximity, angle, and orientation data.
+  \item \textbf{Processing Module (PM):} Preprocesses and analyzes sensor data.
+  \item \textbf{Response Module (RM):} Generates steering and throttle commands.
+  \item \textbf{Application Layer (AM):} Bridges PM and RM to external interfaces.
+  \item \textbf{Simulator (SIM):} Offers a risk-free, reproducible environment.
+  \item \textbf{Prototype Platform:} Embedded hardware implementation on Raspberry Pi or Arduino.
+\end{itemize}
+
+\subsection{Component Diagram}
+\begin{itemize}
+  \item Languages: C++, Python
+  \item Tools: OpenCV, CARLA simulator, Raspberry Pi OS
+  \item Hardware: Raspberry Pi, Pi Camera, L298N motor driver
+\end{itemize}
+
+\section{User Interface}
+\subsection{How to Use}
+\begin{itemize}
+  \item Clone the repository from GitHub.
+  \item Run simulation scripts using Python.
+  \item Deploy algorithm to Raspberry Pi and connect hardware components.
+  \item Use CLI or debug output logs for validation and tuning.
+\end{itemize}
+
+\subsection{Database Explanation}
+No persistent database is used. All computation occurs in real time. Logs can be optionally saved for analysis.
+
+\section{Glossary}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{PM} – Processing Module
+  \item \textbf{RM} – Response Module
+  \item \textbf{OCR} – Optical Character Recognition (not used but contextually related)
+  \item \textbf{SIM} – Simulator for testing
+  \item \textbf{Raspberry Pi} – Hardware computer used in prototype
+  \item \textbf{OpenCV} – Open-source computer vision library
+  \item \textbf{Motor Driver} – L298N board to control motors
+  \item \textbf{GPIO} – General-Purpose Input/Output pins
+\end{itemize}
+
+\section{References}
+\begin{itemize}
+  \item https://github.com/arielsl/FujitsuAutonomousDriving
+  \item https://opencv.org/
+  \item https://github.com/carla-simulator/carla
+  \item https://projects.raspberrypi.org/
+  \item https://www.arduino.cc/en/Guide/HomePage
+  \item https://docs.python.org/3/
+\end{itemize}
+
+\end{document}
